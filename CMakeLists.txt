@@ -13,7 +13,7 @@ endif()
 # Don't create a project if it was already created by another CMakeLists.txt.
 # This allows one library to embed another library without a project collision.
 if (NOT CMAKE_PROJECT_NAME OR "${CMAKE_PROJECT_NAME}" STREQUAL "blend2d")
-  project(blend2d CXX)
+  project(blend2d C CXX)
 endif()
 
 include(CheckCXXCompilerFlag)
@@ -451,10 +451,24 @@ set(BLEND2D_SRC_LIST
   blend2d/font.cpp
   blend2d/font.h
   blend2d/font_p.h
+  blend2d/fontdata.cpp
+  blend2d/fontdata.h
+  blend2d/fontdata_p.h
   blend2d/fontdefs.h
+  blend2d/fontface.cpp
+  blend2d/fontface.h
+  blend2d/fontface_p.h
+  blend2d/fontfeaturesettings.cpp
+  blend2d/fontfeaturesettings.h
+  blend2d/fontfeaturesettings_p.h
   blend2d/fontmanager.cpp
   blend2d/fontmanager.h
   blend2d/fontmanager_p.h
+  blend2d/fonttags.cpp
+  blend2d/fonttags_p.h
+  blend2d/fontvariationsettings.cpp
+  blend2d/fontvariationsettings.h
+  blend2d/fontvariationsettings_p.h
   blend2d/format.cpp
   blend2d/format.h
   blend2d/format_p.h
@@ -813,6 +827,11 @@ if (NOT BLEND2D_EMBED)
 
     blend2d_add_target(bl_test_verify_mt TEST
                        SOURCES test/bl_test_verify_mt.cpp
+                       LIBRARIES blend2d::blend2d
+                       CFLAGS "${BLEND2D_SANITIZE_CFLAGS}")
+
+    blend2d_add_target(bl_test_c_api TEST
+                       SOURCES test/bl_test_c_api.c
                        LIBRARIES blend2d::blend2d
                        CFLAGS "${BLEND2D_SANITIZE_CFLAGS}")
   endif()
